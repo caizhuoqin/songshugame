@@ -3,7 +3,6 @@
    <div class="top_left">
       <div class="logo">
         <div class="sslogo">
-
         </div>
         <div class="userlogo">
 
@@ -24,7 +23,7 @@
       </div>
       <div class="tab_nav">
   <el-col :span="12" style="width:225px">
-    <el-menu :default-active="onRoutes" class="el-menu-vertical-demo"  @open="handleOpen" @close="handleClose" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" unique-opened router>
+    <el-menu :default-active="onRoutes" class="el-menu-vertical-demo"  @open="handleOpen" @close="handleClose" background-color="#324157" text-color="#fff" active-text-color="#ffd04b" unique-opened router>
      <template v-for="item in items" v-on="funall(item,items.item)">
                 <template v-if="item.subs">
                     <el-submenu :index="item.index" :key="item.index">
@@ -75,24 +74,25 @@
     data(){
       return{
           isshow:false,
+           tagsList: [],
           items: [
                     {
-                        // icon: 'el-icon-lx-home',
+                        icon: 'el-icon-s-platform',
                         index: 'dashboard',
                         title: '系统首页'
                     },
                     {
-                        // icon: 'el-icon-lx-cascades',
+                        icon: 'el-icon-picture',
                         index: 'table',
                         title: '基础表格'
                     },
                     {
-                        // icon: 'el-icon-lx-copy',
+                        icon: 'el-icon-s-release',
                         index: 'tabs',
                         title: 'tab选项卡'
                     },
                     {
-                        // icon: 'el-icon-lx-calendar',
+                        icon: 'el-icon-s-order',
                         index: '3',
                         title: '表单相关',
                         subs: [
@@ -121,17 +121,17 @@
                         ]
                     },
                     {
-                        // icon: 'el-icon-lx-emoji',
+                        icon: 'el-icon-s-grid',
                         index: 'icon',
                         title: '自定义图标'
                     },
                     {
-                        // icon: 'el-icon-pie-chart',
+                        icon: 'el-icon-pie-chart',
                         index: 'charts',
                         title: 'schart图表'
                     },
                     {
-                        // icon: 'el-icon-rank',
+                        icon: 'el-icon-rank',
                         index: '6',
                         title: '拖拽组件',
                         subs: [
@@ -146,12 +146,12 @@
                         ]
                     },
                     {
-                        // icon: 'el-icon-lx-global',
+                        icon: 'el-icon-s-cooperation',
                         index: 'i18n',
                         title: '国际化功能'
                     },
                     {
-                        // icon: 'el-icon-lx-warn',
+                        icon: 'el-icon-error',
                         index: '7',
                         title: '错误处理',
                         subs: [
@@ -164,12 +164,6 @@
                                 title: '404页面'
                             }
                         ]
-                    }
-                    ,
-                    {
-                        // icon: 'el-icon-lx-redpacket_fill',
-                        index: '/donate',
-                        title: '支持作者'
                     }
                 ]
       }
@@ -186,18 +180,15 @@
       },
     isshowlist:function(){
       this.isshow = !this.isshow;
-    }
+    },
+     
     },
     computed:{
             onRoutes(){
                 return this.$route.path.replace('/','');
-            }
+            },
+    
         },
-    watch: {
-       funall:function(key,keyPath){
-        console.log(key,keyPath)
-      }
-    },
   }
 </script>
 <style lang="less" scope>
@@ -216,7 +207,7 @@ html,body{
    .top_left{
       width: 224px;
       height: 100%;
-      background: #545c64;
+      background-color: rgb(50, 65, 87);
       display: flex;
       justify-content: space-between;
       flex-direction: column;
@@ -299,15 +290,19 @@ html,body{
        justify-content: space-between;
       .top{
         width: 100%;
-        height: 56px;
-        border-bottom: 1px solid #e6e6e6;
+        height: 40px;
+        border-bottom: 2px solid #242f42;
+      }
+      .show_tab_nav{
+        width: 100%;
+        height: 32px;
       }
       .show_tab{
         width: 100%;
         height: 100%;
         background: #f2f2f2;
         box-sizing: border-box;
-        padding: 10px;
+        padding: 16px;
         overflow:auto;
         .tablist{
           background: #fff;
@@ -351,4 +346,73 @@ html,body{
   .el-container:nth-child(7) .el-aside {
     line-height: 320px;
   }
+   .tags {
+        position: relative;
+        height: 30px;
+        overflow: hidden;
+        background: #fff;
+        padding-right: 120px;
+        box-shadow: 0 5px 10px #ddd;
+    }
+
+    .tags ul {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+    }
+
+    .tags-li {
+        float: left;
+        margin: 3px 5px 2px 3px;
+        border-radius: 3px;
+        font-size: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        height: 23px;
+        line-height: 23px;
+        border: 1px solid #e9eaec;
+        background: #fff;
+        padding: 0 5px 0 12px;
+        vertical-align: middle;
+        color: #666;
+        -webkit-transition: all .3s ease-in;
+        -moz-transition: all .3s ease-in;
+        transition: all .3s ease-in;
+    }
+
+    .tags-li:not(.active):hover {
+        background: #f8f8f8;
+    }
+
+    .tags-li.active {
+        color: #fff;
+    }
+
+    .tags-li-title {
+        float: left;
+        max-width: 80px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin-right: 5px;
+        color: #666;
+    }
+
+    .tags-li.active .tags-li-title {
+        color: #fff;
+    }
+
+    .tags-close-box {
+        position: absolute;
+        right: 0;
+        top: 0;
+        box-sizing: border-box;
+        padding-top: 1px;
+        text-align: center;
+        width: 110px;
+        height: 30px;
+        background: #fff;
+        box-shadow: -3px 0 15px 3px rgba(0, 0, 0, .1);
+        z-index: 10;
+    }
 </style>
