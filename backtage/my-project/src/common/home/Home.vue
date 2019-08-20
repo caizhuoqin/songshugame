@@ -12,9 +12,9 @@
                     <div class="toplist">
                         <tablistnav></tablistnav>
                     </div>
-                    <dir class="bottomlist">
+                    <div class="bottomlist">
                         <router-view></router-view>
-                    </dir>
+                    </div>
                    </div>
                 </div>
             </div>
@@ -91,11 +91,12 @@ export default {
             width: 100%;
             height: 100%;
             background-color: #f2f2f2;
+                box-sizing: border-box;
+                display: flex;
+                padding:16px;
             .tablist_center{
                 width: 100%;
                 height: 100%;
-                box-sizing: border-box;
-                padding:0 16px 16px 16px;
                 display: flex;
                 justify-content: start;
                 flex-direction: column;
@@ -107,6 +108,7 @@ export default {
                 .bottomlist{
                     width: 100%;
                     height: 100%;
+                    // overflow:auto;
                 }
             }
         }

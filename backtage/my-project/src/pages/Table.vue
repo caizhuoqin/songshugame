@@ -74,14 +74,17 @@
     </div>
     <div class="tablist_nav">
        <el-table
-    :data="tableData"
-    style="width: 100%"
-    max-height="500"
-    :default-sort = "{prop: 'date', order: 'descending'}"
-    >
+        :data="tableData"
+        style="width: 100%"
+        max-height="600"
+        stripe
+        show-summary
+        :default-sort = "{prop: 'date', order: 'descending'}"
+        >
     <el-table-column
       prop="date"
       label="日期"
+      fixed
       sortable
       width="180">
     </el-table-column>
@@ -109,8 +112,7 @@
     </el-table-column>
   </el-table>
   </div>
-
-  <div class="pagination_bottom">
+   <div class="pagination_bottom">
       <div class="block" style="float:right;margin-right:200px;">
         <span class="demonstration"></span>
         <el-pagination
@@ -137,6 +139,7 @@
 
     data() {
       return {
+        // getSummaries1:[1,2,3,4,5,6],
          input1: '',
         input2: '',
         input3: '',
@@ -285,6 +288,9 @@
     width: 100%;
     height: 100%;
     background: #fff;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
   }
     .condition{
       width: 100%;
@@ -298,7 +304,7 @@
         height: 50px;
         margin: 5px;
         display: flex;
-        justify-content: flex-start;
+        justify-content:start;
       .tabinp{
         margin:0 8px;
         width: 180px;
@@ -312,16 +318,16 @@
       }
 
     }
-    .pagination_bottom{
-      width: 100%;
-      height: 30px;
-      margin-top: 30px;
-    }
     .tablist_nav{
         width: 99%;
-        max-height: 65%;
+        height:750px;
         box-sizing: border-box;
-        padding: 20px;
-        // overflow: auto;
+        padding:0 20px;
+        overflow:auto;
+    }
+    .pagination_bottom{
+      width: 100%;
+      height: 180px;
+      margin-top: 30px;
     }
 </style>

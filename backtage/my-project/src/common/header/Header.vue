@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <div class="left">
-                <div class="collapse-btn" @click="collapseChage" style="font-size:40px;">
+                <div class="collapse-btn" @click="collapseChage" style="font-size:40px;color:#fff">
                     <i v-if="!collapse" class="el-icon-s-fold"></i>
                     <i v-else class="el-icon-s-unfold"></i>
                 </div>
