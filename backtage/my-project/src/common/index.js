@@ -1,7 +1,7 @@
 import Sidebar from './sidebar/Sidebar'
 import Header from './header/Header'
-import Home from './home/Home'
-import Tags from './tags/Tags'
+// import Home from './home/Home'
+// import Tags from './tags/Tags'
 import Tablistnav from './tablistnav/Tablistnav'
 
 export default {

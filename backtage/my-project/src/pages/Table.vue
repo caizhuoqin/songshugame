@@ -76,6 +76,7 @@
        <el-table
     :data="tableData"
     style="width: 100%"
+    max-height="500"
     :default-sort = "{prop: 'date', order: 'descending'}"
     >
     <el-table-column
@@ -317,10 +318,10 @@
       margin-top: 30px;
     }
     .tablist_nav{
-      width: 99%;
-      max-height: 70%;
+        width: 99%;
+        max-height: 65%;
         box-sizing: border-box;
         padding: 20px;
-        overflow: auto;
+        // overflow: auto;
     }
 </style>

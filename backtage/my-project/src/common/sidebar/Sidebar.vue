@@ -1,35 +1,34 @@
 <template>
     <div class="sidebar">
-    <el-col :span="12" style="width:225px">
-        <el-menu :default-active="onRoutes" class="el-menu-vertical-demo" :collapse="collapse" @open="handleOpen" @close="handleClose" background-color="#324157" text-color="#fff" active-text-color="#ffd04b" unique-opened router>
-        <template v-for="item in items" v-on="funall(item,items.item)">
-                    <template v-if="item.subs">
-                        <el-submenu :index="item.index" :key="item.index">
-                            <template slot="title">
-                                <i :class="item.icon"></i><span slot="title">{{ item.title }}</span>
-                            </template>
-                            <template v-for="subItem in item.subs">
-                                <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
-                                    <template slot="title">{{ subItem.title }}</template>
-                                    <el-menu-item v-for="(threeItem,i) in subItem.subs" :key="i" :index="threeItem.index">
-                                        {{ threeItem.title }}
-                                    </el-menu-item>
-                                </el-submenu>
-                                <el-menu-item v-else :index="subItem.index" :key="subItem.index">
-                                    {{ subItem.title }}
-                                </el-menu-item>
-                            </template>
-                        </el-submenu>
-                    </template>
-                    <template v-else>
-                        <el-menu-item :index="item.index" :key="item.index">
+        <el-menu class="el-menu-vertical-demo" :default-active="onRoutes" :collapse="collapse" background-color="#324157"
+            text-color="#bfcbd9" active-text-color="#20a0ff" unique-opened router>
+            <template v-for="item in items">
+                <template v-if="item.subs">
+                    <el-submenu :index="item.index" :key="item.index">
+                        <template slot="title">
                             <i :class="item.icon"></i><span slot="title">{{ item.title }}</span>
-                        </el-menu-item>
-                    </template>
+                        </template>
+                        <template v-for="subItem in item.subs">
+                            <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
+                                <template slot="title">{{ subItem.title }}</template>
+                                <el-menu-item v-for="(threeItem,i) in subItem.subs" :key="i" :index="threeItem.index">
+                                    {{ threeItem.title }}
+                                </el-menu-item>
+                            </el-submenu>
+                            <el-menu-item v-else :index="subItem.index" :key="subItem.index">
+                                {{ subItem.title }}
+                            </el-menu-item>
+                        </template>
+                    </el-submenu>
                 </template>
+                <template v-else>
+                    <el-menu-item :index="item.index" :key="item.index">
+                        <i :class="item.icon"></i><span slot="title">{{ item.title }}</span>
+                    </el-menu-item>
+                </template>
+            </template>
         </el-menu>
-    </el-col>
-      </div>
+    </div>
 </template>
 <script>
 import bus from '../bus';
@@ -37,8 +36,6 @@ import bus from '../bus';
       name: 'sidebar',
     data(){
       return{
-          isshow:false,
-           tagsList: [],
            collapse: false,
           items: [
                     {
@@ -133,14 +130,6 @@ import bus from '../bus';
                 ]
       }
     },
-    methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      },
-    },
     computed:{
             onRoutes(){
                 return this.$route.path.replace('/','');
@@ -151,14 +140,17 @@ import bus from '../bus';
             // 通过 Event Bus 进行组件间通信，来折叠侧边栏
             bus.$on('collapse', msg => {
                 this.collapse = msg;
-                constants.log("........collapse调用了")
             })
         }
   }
 </script>
 <style lang="less">
     .sidebar{
-        width: 224px;
+        // width: 224px;
         height:100%;
       }
+        .el-menu-vertical-demo:not(.el-menu--collapse) {
+                width: 200px;
+                min-height: 400px;
+            }
 </style>

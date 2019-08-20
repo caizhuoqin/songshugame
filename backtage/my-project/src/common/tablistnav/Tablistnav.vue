@@ -101,7 +101,7 @@
                         }else if(i > 0){
                             this.$router.push(this.tagsList[i-1].path);
                         }else{
-                            this.$router.push('/');
+                            // this.$router.push('/');
                         }
                         this.tagsList.splice(i, 1);
                         break;
@@ -117,7 +117,7 @@
 <style>
     .tags {
         position: relative;
-        height: 39px;
+        height: 30px;
         overflow: hidden;
         background: #fff;
         padding-right: 120px;

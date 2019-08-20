@@ -1,45 +1,62 @@
 <template>
     <div class="header">
         <div class="left">
+                <div class="collapse-btn" @click="collapseChage" style="font-size:40px;">
+                    <i v-if="!collapse" class="el-icon-s-fold"></i>
+                    <i v-else class="el-icon-s-unfold"></i>
+                </div>
+                <div class="logo">后台管理系统</div>
         </div>
         <div class="right">
             <!-- <div class="tab_nav"><i class="el-icon-d-arrow-right"></i></div> -->
-            <div class="operation ">
-                 <img src="../../assets/img/songshu-logoimg.png" alt="">
-                <!-- <div v-on:click="isshowlist">
-                    <span>关闭操作</span><i class="el-icon-arrow-down"></i>
-                </div>
-                <div class="operation_tabs" v-show="isshow">
-                    <div class="operation_top">
-                        <p>定位当前选项卡</p>
-                    </div>
-                    <div class="operation_center">
-                         <p>关闭其他选项卡</p>
-                        
-                    </div>
-                    <div class="operation_bottom">
-                        <p>关闭全部选项卡</p>   
-                    </div>
-                </div> -->
+            <div class="operation">
+                 <img src="../../assets/img/admin.png" alt="">
             </div>
-            <div class="quit"><i class="el-icon-d-arrow-right"></i><span>退出</span></div>
+            <div class="quit">
+                <el-dropdown class="user-name" trigger="click" @command="handleCommand">
+                    <span class="el-dropdown-link" style="color:#fff;">
+                        admin
+                        <i class="el-icon-caret-bottom"></i>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <a target="_blank">
+                            <el-dropdown-item>修改个人信息</el-dropdown-item>
+                        </a>
+                        <a  target="_blank">
+                            <el-dropdown-item>查看个人信息</el-dropdown-item>
+                        </a>
+                        <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
+            </div>
         </div>
     </div>
 </template>
 <script>
+import bus from '../bus';
 export default {
     name: 'app-header',
-    props: {
-        title: String
-    },
     data() {
         return {
-            isshow:false,
+            collapse: false,
+            // isshow:false,
         }
     },
     methods:{
-        isshowlist:function(){
-            this.isshow =!this.isshow
+        collapseChage(){
+                this.collapse = !this.collapse;
+                bus.$emit('collapse', this.collapse);
+            },
+         handleCommand(command) {
+            if (command == 'loginout') {
+                localStorage.removeItem('ms_username');
+                this.$router.push('/login');
+            }
+        },
+    },
+    mounted() {
+        if (document.body.clientWidth < 1500) {
+            this.collapseChage();
         }
     }
 }
@@ -47,77 +64,60 @@ export default {
 <style lang="less" scope>
     .header{
         width: 100%;
-        height: 40px;
-        border-bottom: 2px solid #242f42;
+        height: 70px;
+        border-bottom: 1px solid #242f42;
         display: flex;
         justify-content: space-between;
-        background: #fff;
+         background-color: #242f42;
         .left{
             width:75%;
             height: 40px;
+            .collapse-btn {
+                float: left;
+                padding: 0 21px;
+                cursor: pointer;
+                line-height: 70px;
+            }
+            .logo {
+            float: left;
+            width: 250px;
+            color: #fff;
+            font-size: 25px;
+            line-height: 70px;
+        }
         }
         .right{
             width: 250px;
-            height:39px;
+            height:69px;
             display: flex;
             justify-content: flex-start;
-            text-align:center;
-            color: #888;
+            box-sizing: border-box;
+            padding: 15px 0;
             .tab_nav{
                 border-left: 1px solid#ccc;
                 width: 50px;
                 height: 100%;
                 text-align:center;
-                           line-height: 40px;
+                line-height: 70px;
             }
             .operation{
-                border-left: 1px solid#ccc;
-                width: 150px;
-                 height: 100%;
+                width: 40px;
+                 height:40px;
                  position: relative;
                 line-height: 40px;
+                border-radius: 40px 40px;
+                overflow: hidden;
+                margin-right: 20px;
                 img{
                     width: 100%;
                     height: 100%;
-                }
-                 .operation_tabs{
-                     width: 170px;
-                     height: 120px;
-                     background: #fff;
-                     position: absolute;
-                     top:42px;
-                     right: 0;
-                     color: #999;
-                     border: 1px solid #ccc;
-                     .operation_top{
-                         width: 100%;
-                         height: 40px;
-                         line-height: 40px;
-                         border-bottom: 1px solid #ccc;
-                         font-size: 14px;
-                     }
-                     .operation_center{
-                        width: 100%;
-                         height: 40px;
-                         font-size: 14px;
-                         line-height: 40px;
-                     }
-                     .operation_bottom{
-                         width: 100%;
-                         height: 40px;
-                         font-size: 14px;
-                         line-height: 40px;
-                     }
-                     :hover{
-                         background: #f2f2f2;
-                     }
-                 }
+                
+             }
             }
             .quit{
-            border-left: 1px solid#ccc;
                 width: 100px;
-                 height: 100%;
-                line-height: 40px;
+                  height: 100%;
+                 line-height: 40px;
                 i{
                     font-size: 20px;
                 }
