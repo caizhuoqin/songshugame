@@ -43,13 +43,13 @@
                 if (item) {
                     delItem.path === this.$route.fullPath && this.$router.push(item.path);
                 }else{
-                    this.$router.push('/');
+                    this.$router.push('/webpage');
                 }
             },
             // 关闭全部标签
             closeAll(){
                 this.tagsList = [];
-                this.$router.push('/');
+                this.$router.push('/webpage');
             },
             // 关闭其他标签
             closeOther(){
@@ -81,7 +81,7 @@
         },
         computed: {
             showTags() {
-                return this.tagsList.length > 0;
+                return this.tagsList.length >= 0;
             }
         },
         watch:{
@@ -101,7 +101,7 @@
                         }else if(i > 0){
                             this.$router.push(this.tagsList[i-1].path);
                         }else{
-                            // this.$router.push('/');
+                            this.$router.push('/');
                         }
                         this.tagsList.splice(i, 1);
                         break;

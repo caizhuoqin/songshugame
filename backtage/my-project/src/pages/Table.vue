@@ -1,6 +1,20 @@
 <template>
   <div class="box">
-    <div class="condition">
+          <div class="option_nav">
+            <div class="tab_name">
+                <el-breadcrumb separator-class="el-icon-arrow-right">
+                <el-breadcrumb-item>首页</el-breadcrumb-item>
+                <el-breadcrumb-item>活动管理</el-breadcrumb-item>
+              </el-breadcrumb>
+            </div>
+            <div class="tab_option">
+            <i class="el-icon-arrow-up" v-if="iconlist" v-on:click="upward"></i>
+            <i class="el-icon-arrow-down" v-else v-on:click="upwardlist"></i>
+            </div>
+          </div>
+   <el-collapse-transition>
+        <div v-if="conditionupward">
+            <div class="condition ransition-box">
         <div class="tabnav">
            <div class="tabinp">
           <el-input
@@ -33,9 +47,6 @@
             suffix-icon="el-icon-edit el-input__icon"
             v-model="input4">
           </el-input>
-        </div>
-        <div class="search_buttom">
-          <el-button type="primary" icon="el-icon-search"  size="small">搜索</el-button>
         </div>
         </div>
         <div class="tabnav">
@@ -71,12 +82,29 @@
           </div>
 
         </div>
+        <div class="tabnav">
+          <div class="tabinp">
+            <div class="search_buttom">
+            <el-button type="primary" icon="el-icon-search"  size="small">搜索</el-button>
+          </div>
+          </div>
+          <div class="tabinp">
+            <div class="search_buttom">
+            <el-button type="primary" icon="el-icon-search"  size="small">搜索</el-button>
+          </div>
+          </div>
+        </div>
     </div>
-    <div class="tablist_nav">
+        </div>
+      </el-collapse-transition>
+
+
+  
+    <div class="tablist_nav" ref="tablewrap">
        <el-table
         :data="tableData"
         style="width: 100%"
-        max-height="600"
+        :max-height="haihet"
         stripe
         show-summary
         :default-sort = "{prop: 'date', order: 'descending'}"
@@ -113,16 +141,16 @@
   </el-table>
   </div>
    <div class="pagination_bottom">
-      <div class="block" style="float:right;margin-right:200px;">
+      <div class="block" style="float:right;margin-right:50px;">
         <span class="demonstration"></span>
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="currentPage4"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
+          :page-sizes="[10, 20, 50, 100]"
+          :page-size="10"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400">
+          :total="100">
         </el-pagination>
       </div>
     </div>
@@ -130,6 +158,7 @@
 </template>
 
 <script>
+import { constants } from 'fs';
   export default {
     methods: {
       handleClick(row) {
@@ -140,19 +169,20 @@
     data() {
       return {
         // getSummaries1:[1,2,3,4,5,6],
-         input1: '',
+        input1: '',
         input2: '',
         input3: '',
         input4: '',
+        haihet:'100%',
         tableData: [{
-          date: '2016-05-02',
+          date: '2016-05-12',
           name: '王小虎',
           province: '上海',
           city: '普陀区',
           address: '上海市普陀区金沙江路 1518 弄',
           zip: 200333
         }, {
-          date: '2016-05-04',
+          date: '2016-05-14',
           name: '王小虎',
           province: '上海',
           city: '普陀区',
@@ -167,7 +197,7 @@
           zip: 200333
         },
         {
-          date: '2016-05-04',
+          date: '2016-05-13',
           name: '王小虎',
           province: '上海',
           city: '普陀区',
@@ -175,7 +205,7 @@
           zip: 200333
         },
         {
-          date: '2016-05-04',
+          date: '2016-05-16',
           name: '王小虎',
           province: '上海',
           city: '普陀区',
@@ -183,7 +213,7 @@
           zip: 200333
         },
         {
-          date: '2016-05-04',
+          date: '2016-05-17',
           name: '王小虎',
           province: '上海',
           city: '普陀区',
@@ -191,7 +221,7 @@
           zip: 200333
         },
         {
-          date: '2016-05-04',
+          date: '2016-05-18',
           name: '王小虎',
           province: '上海',
           city: '普陀区',
@@ -199,7 +229,7 @@
           zip: 200333
         },
         {
-          date: '2016-05-04',
+          date: '2016-05-19',
           name: '王小虎',
           province: '上海',
           city: '普陀区',
@@ -207,7 +237,39 @@
           zip: 200333
         },
         {
-          date: '2016-05-04',
+          date: '2016-05-20',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1517 弄',
+          zip: 200333
+        },
+        {
+          date: '2016-05-21',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1517 弄',
+          zip: 200333
+        },
+        {
+          date: '2016-06-04',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1517 弄',
+          zip: 200333
+        },
+        {
+          date: '2016-06-01',
+          name: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          address: '上海市普陀区金沙江路 1517 弄',
+          zip: 200333
+        },
+        {
+          date: '2016-06-03',
           name: '王小虎',
           province: '上海',
           city: '普陀区',
@@ -215,28 +277,28 @@
           zip: 200333
         },
        {
-          date: '2016-05-04',
+          date: '2016-06-10',
           name: '王小虎',
           province: '上海',
           city: '普陀区',
           address: '上海市普陀区金沙江路 1517 弄',
           zip: 200333
         },{
-          date: '2016-05-04',
+          date: '2016-06-15',
           name: '王小虎',
           province: '上海',
           city: '普陀区',
           address: '上海市普陀区金沙江路 1517 弄',
           zip: 200333
         },{
-          date: '2016-05-04',
+          date: '2016-06-20',
           name: '王小虎',
           province: '上海',
           city: '普陀区',
           address: '上海市普陀区金沙江路 1517 弄',
           zip: 200333
         }, {
-          date: '2016-05-03',
+          date: '2016-06-20',
           name: '王小虎',
           province: '上海',
           city: '普陀区',
@@ -261,7 +323,9 @@
         }],
         value: '',
         value1: [],
-        currentPage4: 4,
+        currentPage4:4,
+        iconlist:true,
+        conditionupward:true
       }
     },
     methods: {
@@ -279,7 +343,22 @@
       },
       formatter(row, column) {
         return row.address;
-      }
+      },
+      upward(){
+        this.iconlist = !this.iconlist
+        this.conditionupward = !this.conditionupward
+        this.haihet =this.haihet+200
+      },
+      upwardlist(){
+        this.iconlist = !this.iconlist
+        this.conditionupward = !this.conditionupward
+        this.haihet =this.haihet-200
+    },
+  },
+     mounted(){
+      this.haihet = parseInt(window.getComputedStyle(this.$refs.tablewrap).height)
+      // console.log(window.getComputedStyle(this.$refs.tablewrap).height)
+      console.log(this.haihet)
     },
   }
 </script>
@@ -291,12 +370,14 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    box-sizing: border-box;
+    padding:0 16px;
   }
     .condition{
       width: 100%;
       min-height: 200px;
       box-sizing: border-box;
-      padding: 20px;
+      padding:10px 0px;
       border-bottom: 1px solid #ccc;
       position: relative;
       .tabnav{
@@ -310,24 +391,56 @@
         width: 180px;
         height: 40px;
       }
-      .search_buttom{
-        position: absolute;
-        top:20px;
-        right: 30px;
-      }
       }
 
     }
+    .option_nav{
+        width: 100%;
+        height: 30px;
+        border-bottom: 1px solid #ccc;
+          display: flex;
+          justify-content: space-between;
+          text-align: center;
+          line-height: 30px;
+          .tab_name{
+            width: 200px;
+            height: 30px;
+            color: #888;
+            font-size: 16px;
+            box-sizing: border-box;
+            padding: 8px 0;
+          }
+          .tab_option{
+            width: 100px;
+            height: 30px;
+            i:hover{
+            cursor: pointer;
+          }
+          }
+          
+      }
     .tablist_nav{
-        width: 99%;
-        height:750px;
+        // width: 99%;
+        // height:100%;
+        flex: 1;
         box-sizing: border-box;
-        padding:0 20px;
-        overflow:auto;
+        overflow:hidden;
     }
     .pagination_bottom{
       width: 100%;
-      height: 180px;
-      margin-top: 30px;
+      height: 120px;
+      // margin-top: 30px;
     }
+    .transition-box {
+    margin-bottom: 10px;
+    width: 200px;
+    height: 100px;
+    border-radius: 4px;
+    background-color: #409EFF;
+    text-align: center;
+    color: #fff;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    margin-right: 20px;
+  }
 </style>
